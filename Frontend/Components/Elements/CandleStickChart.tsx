@@ -10,11 +10,12 @@ type CandleStickData = CandlestickData<UTCTimestamp> & {
     volume?: number;
 };
 
-type CandleStickChartProps = {
+interface CandleStickChartProps {
     chartData: CandleStickData[];
+    selectedSym: string
 };
 
-export default function CandleStickChart({ chartData }: CandleStickChartProps) {
+export default function CandleStickChart({ chartData, selectedSym }: CandleStickChartProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const root_url = process.env.NEXT_PUBLIC_ROOT_URL
     const ws_url = root_url?.replace(/^https?/, 'wss')
@@ -51,6 +52,14 @@ export default function CandleStickChart({ chartData }: CandleStickChartProps) {
         candleSeries.setData(chartData)
 
         const ws = new WebSocket(ws_url + "/live/ws");
+
+        ws.onopen = () => {
+            console.log("WebSocket connected");
+            ws.send(JSON.stringify({
+                action: "subscribe",
+                symbol: selectedSym
+            }))
+        }
 
         ws.onmessage = (event) => {
             const candle = JSON.parse(event.data);

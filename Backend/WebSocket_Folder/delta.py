@@ -5,6 +5,7 @@ import asyncio
 
 # production websocket base url
 WEBSOCKET_URL = "wss://socket.india.delta.exchange"
+candles = {}
 
 def on_error(ws, error):
     print(f"Socket Error: {error}")
@@ -15,7 +16,7 @@ def on_close(ws, close_status_code, close_msg):
 
 def on_open(ws):
   print(f"Socket opened")
-  subscribe(ws, "candlestick_1m", ["MARK:BTCUSD"])
+  subscribe(ws, "candlestick_1m", ["BTCUSD", "ETHUSD", "SOLUSD"])
 
 
 def subscribe(ws, channel, symbols):
@@ -34,9 +35,15 @@ def subscribe(ws, channel, symbols):
 
 def on_message(ws, message, loop):
     message_json = json.loads(message)
+    symbol = message_json["symbol"]
+
+    if symbol not in candles:
+       candles[symbol] = []
+
+    candles[symbol].append(message_json)
 
     asyncio.run_coroutine_threadsafe(
-        manager.broadcast(json.dumps(message_json)),
+        manager.broadcast(message_json),
         loop
     )
 

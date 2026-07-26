@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, timezone
 import pytz
 
-def CandleData():
+def CandleData(symbol):
     headers = {
         'Accept': 'application/json'
     }
@@ -13,7 +13,7 @@ def CandleData():
     endtime = int(dt.timestamp())
     
     r = requests.get('https://api.india.delta.exchange/v2/history/candles', params={
-        'resolution': '1m',  'symbol': 'BTCUSD',  'start': endtime,  'end': startTime
+        'resolution': '1m',  'symbol': symbol,  'start': endtime,  'end': startTime
         }, headers = headers)
     
     return r.json()

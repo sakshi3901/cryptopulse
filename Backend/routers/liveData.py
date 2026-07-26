@@ -10,10 +10,15 @@ async def websocket_endpoint(websocket: WebSocket):
 
     try:
         while True:
-            await websocket.receive_text()
+            message = await websocket.receive_json()
+            if message["action"] == "subscribe":
+                manager.subscribe(
+                    websocket,
+                    message["symbol"]
+                )
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 
-@router.get('/chart')
-def chartData():
-    return CandleData()
+@router.get('/chart/{symbol}')
+def chartData(symbol: str):
+    return CandleData(symbol)
