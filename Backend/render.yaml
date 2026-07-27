@@ -8,13 +8,4 @@ projects:
     - type: web
       name: Cyptopulse
       runtime: docker
-      repo: https://github.com/sakshi3901/cryptopulse
-      plan: free
-      envVars:
-      - key: google_client_id
-        sync: false
-      region: oregon
-      buildCommand: pip install -r requirements.txt
-      startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
-      autoDeployTrigger: commit
-      rootDir: Backend
+      
