@@ -25,8 +25,8 @@ export default function Loginpage() {
             }
 
             const data = await response.json();
+            Cookies.set('lt', JSON.stringify(data))
             window.location.href = '/home'
-            Cookies.set('lt', data)
         } catch (error) {
             console.error("Google authentication failed:", error);
             throw error; // Re-throw so the caller can handle it
