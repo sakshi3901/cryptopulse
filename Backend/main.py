@@ -6,6 +6,8 @@ from WebSocket_Folder.delta import start_websocket
 import threading
 import asyncio
 from services.cryptoData import CandleData
+from databases.connection import Base, engine
+from WebSocket_Folder.redis_listener import listen_market_data
 
 app = FastAPI()
 origins = [
@@ -25,6 +27,10 @@ app.add_middleware(
 app.include_router(login_router)
 app.include_router(live_data_router, prefix="/live")
 
+Base.metadata.create_all(
+    bind=engine
+)
+
 @app.get('/')
 def read_root():
     return {"message": "Backend is working"}
@@ -32,4 +38,9 @@ def read_root():
 @app.on_event("startup")
 async def startup_event():
     app.state.loop = asyncio.get_running_loop()
+
+    # Start Redis listener
+    asyncio.create_task(listen_market_data())
+
+    # Start Delta websocket thread
     threading.Thread(target=start_websocket, args=(app.state.loop,), daemon=True).start()

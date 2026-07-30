@@ -34,6 +34,14 @@ export default function CandleStickChart({ chartData, selectedSym }: CandleStick
                 vertLines: { color: "#222" },
                 horzLines: { color: "#222" },
             },
+            localization: {
+                timeFormatter: (time: any) => new Date(time * 1000).toLocaleTimeString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                }),
+            },
             timeScale: {
                 timeVisible: true,
                 tickMarkFormatter: (time: any) => new Date(time * 1000).toLocaleTimeString("en-IN", {
