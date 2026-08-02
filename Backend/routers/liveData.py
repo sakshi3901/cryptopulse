@@ -1,5 +1,5 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from WebSocket_Folder.client import manager
+from webSocket.manager import manager
 from services.cryptoData import CandleData
 
 router = APIRouter()

@@ -1,1 +1,242 @@
-Coinflow
+# 🚀 Crypto Market Dashboard
+
+A production-inspired **real-time cryptocurrency market dashboard** built with **Next.js, TypeScript, FastAPI, and WebSockets**.
+
+The application streams live cryptocurrency market data from **Delta Exchange** through a centralized backend WebSocket service. Users authenticate using **Google OAuth**, receive a **JWT** for secure API access, and view real-time market updates without directly connecting to the exchange.
+
+The project is designed with scalability and maintainability in mind by separating authentication, WebSocket communication, and frontend rendering into distinct layers.
+
+---
+
+# ✨ Features
+
+## Authentication
+
+* Google OAuth Sign-In
+* JWT-based Authentication
+* Protected Routes
+* Secure User Sessions
+
+## Real-Time Market Data
+
+* Live cryptocurrency prices
+* Backend WebSocket proxy
+* Automatic reconnection handling
+* Broadcast updates to all connected clients
+
+## Dashboard
+
+* Live market overview
+* Responsive UI
+* Real-time price updates
+* Fast client-side rendering
+
+## Backend
+
+* REST APIs using FastAPI
+* WebSocket server
+* JWT authentication middleware
+* Modular project architecture
+
+## Deployment
+
+* Dockerized application
+* Frontend deployed on Vercel
+* Backend deployed on Render
+
+---
+
+# 🏗️ System Architecture
+
+                   Delta Exchange
+                          │
+                  WebSocket Connection
+                          │
+                 FastAPI Backend Server
+                 ┌────────────────────┐
+                 │  Authentication    │
+                 │  REST APIs         │
+                 │  WebSocket Manager │
+                 └────────────────────┘
+                          │
+               Broadcast Live Updates
+                          │
+                    Next.js Frontend
+                          │
+                     Authenticated User
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+* Next.js
+* TypeScript
+* React
+* Tailwind CSS
+* WebSocket API
+
+## Backend
+
+* Python
+* FastAPI
+* WebSockets
+* JWT Authentication
+* Google OAuth
+
+## DevOps
+
+* Docker
+* Vercel
+* Render
+
+---
+
+# 🔐 Authentication Flow
+
+User
+   │
+   ▼
+Google OAuth
+   │
+   ▼
+FastAPI verifies Google token
+   │
+   ▼
+Generate JWT
+   │
+   ▼
+Frontend stores JWT
+   │
+   ▼
+Authenticated API Requests
+
+---
+
+# ⚡ Real-Time Data Flow
+
+Delta Exchange
+      │
+      ▼
+Single Backend WebSocket Connection
+      │
+      ▼
+Process Incoming Messages
+      │
+      ▼
+Broadcast to Connected Clients
+      │
+      ▼
+Next.js Dashboard Updates Instantly
+
+---
+
+# 🚀 Getting Started
+
+## Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/crypto-dashboard.git
+```
+
+```bash
+cd crypto-dashboard
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+python -m venv venv
+
+source venv/bin/activate
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Create a `.env` file
+
+```env
+JWT_SECRET=your_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+DELTA_WS_URL=your_delta_websocket_url
+```
+
+Run the server
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 🐳 Docker
+
+Build
+
+```bash
+docker compose build
+```
+
+Run
+
+```bash
+docker compose up
+```
+
+---
+
+# 🌐 Deployment
+
+| Service  | Platform |
+| -------- | -------- |
+| Frontend | Vercel   |
+| Backend  | Render   |
+
+---
+
+# 🔒 Security
+
+* Google OAuth Authentication
+* JWT Authorization
+* Protected API Routes
+* Environment Variable Management
+* Backend Authentication Middleware
+
+---
+
+# 🔮 Future Improvements
+
+* PostgreSQL + SQLAlchemy
+* Redis Pub/Sub
+* Portfolio Tracking
+* Watchlists
+* Price Alerts
+* Candlestick Charts
+* GitHub Actions CI/CD
+* Unit & Integration Testing
+* API Rate Limiting
+* Structured Logging
+* Monitoring & Metrics
+
+---

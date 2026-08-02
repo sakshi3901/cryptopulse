@@ -1,9 +1,9 @@
 import websocket
 import json
-from WebSocket_Folder.client import manager
+from webSocket.manager import manager
 import asyncio
 from services.candleService import save_candle
-from services.redis import add_market_data
+from redis_client.publisher import publish_market_data
 
 # production websocket base url
 WEBSOCKET_URL = "wss://socket.india.delta.exchange"
@@ -45,11 +45,8 @@ def on_message(ws, message, loop):
     candles[symbol].append(message_json)
     save_candle(message_json)
 
-    # send to redis
-    add_market_data(message_json),
-
     asyncio.run_coroutine_threadsafe(
-        manager.broadcast(message_json),
+        publish_market_data(message_json),
         loop
     )
 
