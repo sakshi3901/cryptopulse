@@ -73,10 +73,7 @@ export default function CandleStickChart({ chartData, selectedSym }: CandleStick
             const candle = JSON.parse(event.data);
 
             // microseconds → seconds
-            const seconds = Math.floor(candle.timestamp / 1_000_000);
-
-            // align to 1-minute candle
-            const time = (Math.floor(seconds / 60) * 60) as UTCTimestamp;
+            const time = Math.floor(candle.candle_start_time / 1_000_000) as UTCTimestamp;
 
             const bar = {
                 time,
