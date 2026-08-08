@@ -18,7 +18,7 @@ def on_close(ws, close_status_code, close_msg):
 
 def on_open(ws):
   print(f"Socket opened")
-  subscribe(ws, "candlestick_1m", ["BTCUSD", "ETHUSD", "SOLUSD"])
+  subscribe(ws, "candlestick_1m", ["BTCUSD"])
 
 
 def subscribe(ws, channel, symbols):
@@ -44,6 +44,7 @@ def on_message(ws, message, loop):
 
     candles[symbol].append(message_json)
     save_candle(message_json)
+    # print(message_json)
 
     asyncio.run_coroutine_threadsafe(
         publish_market_data(message_json),
